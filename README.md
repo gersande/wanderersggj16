@@ -3,8 +3,8 @@
 ## WANDERERS:
 
 * Ida Toft
-* Tony Higuchi
-* Tuuli Saarinen
+* [Tony Higuchi](http://github.com/tohigu)
+* [Tuuli Saarinen](https://github.com/Celebsi)
 * Gersande La Flèche
 
 ## Getting up and running in Unity 
