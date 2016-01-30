@@ -14,7 +14,7 @@ public class StatePatternMenhir : MonoBehaviour
     private void Awake()
     {
         singState = new SingState (this);
-        IdleState = new IdleState (this);
+        idleState = new IdleState (this);
         playerTgt = GameObject.FindWithTag("Player");
 
     }
