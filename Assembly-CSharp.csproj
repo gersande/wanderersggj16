@@ -45,7 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\RUN.cs" />
      <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\FirstPersonDrifter.cs" />
      <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\LockMouse.cs" />
      <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\MouseLook.cs" />
