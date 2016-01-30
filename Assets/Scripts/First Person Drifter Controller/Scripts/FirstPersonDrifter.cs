@@ -9,12 +9,12 @@ using System.Collections;
 public class FirstPersonDrifter: MonoBehaviour
 {
     public float walkSpeed = 6.0f;
-    public float runSpeed = 10.0f;
+    public float runSpeed = 15.0f;
  
     // If true, diagonal speed (when strafing + moving forward or back) can't exceed normal move speed; otherwise it's about 1.4 times faster
     private bool limitDiagonalSpeed = true;
  
-    public bool enableRunning = false;
+    public bool enableRunning = true;
  
     public float jumpSpeed = 4.0f;
     public float gravity = 10.0f;
