@@ -6,10 +6,13 @@ public class StatePatternMenhir : MonoBehaviour
     
     public MeshRenderer meshRendererFlag;
     public GameObject playerTgt;
+	public float sightRange = 20f;
+
 
     [HideInInspector] public IMenhirState currentState;
     [HideInInspector] public SingState singState;
     [HideInInspector] public IdleState idleState;
+
 
     private void Awake()
     {
@@ -82,7 +85,7 @@ public class IdleState : IMenhirState
     private void Look()
     {
         RaycastHit hit;
-        if (Physics.Raycast (playerTgt.transform.position, playerTgt.transform.forward, out hit, playerTgt.sightRange) &&  hit.collider.CompareTag(gameObject.tag)) {
+		if (Physics.Raycast (menhir.playerTgt.transform.position, menhir.playerTgt.transform.forward, out hit, menhir.sightRange) &&  hit.collider.CompareTag(menhir.gameObject.tag)) {
             ToSingState();
         }
     }
@@ -124,7 +127,7 @@ public class SingState : IMenhirState
     private void Look()
     {
         RaycastHit hit;
-        if (Physics.Raycast (playerTgt.transform.position, playerTgt.transform.forward, out hit, playerTgt.sightRange) &&  hit.collider.CompareTag(gameObject.tag)) {
+		if (Physics.Raycast (menhir.playerTgt.transform.position, menhir.playerTgt.transform.forward, out hit, menhir.sightRange) &&  hit.collider.CompareTag(menhir.gameObject.tag)) {
             
         }else{
             ToIdleState();
