@@ -45,8 +45,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Camera.cs" />
-     <Compile Include="Assets\Scripts\FirstPersonDrifter.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\FirstPersonDrifter.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\LockMouse.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\Optional\CameraFadeOnStart.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\Optional\CameraZoom.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\Optional\CheckIfBelowLevel.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\Optional\HeadBob.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\Optional\PauseMenu.cs" />
+     <Compile Include="Assets\Scripts\First Person Drifter Controller\Scripts\Utils\CameraFade.cs" />
+     <None Include="Assets\Scripts\First Person Drifter Controller\info.txt" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
