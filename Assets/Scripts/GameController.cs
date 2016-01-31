@@ -17,11 +17,11 @@ public class GameController : MonoBehaviour {
 		RaycastHit hit;
 		if (Physics.Raycast(player.transform.position, player.transform.forward, out hit, 200f)) {
 			foreach (var item in menhirs) {
-				if (hit.collider.CompareTag(item.tag)) {
+				/*if (hit.collider.CompareTag(item.tag)) {
 					if (Input.GetMouseButtonDown(0))
 						item.Sing();
 					break;
-				}
+				}*/
 			}
 
 		}
