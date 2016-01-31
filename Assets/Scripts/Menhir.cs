@@ -26,7 +26,9 @@ public class IdleState : IMenhirState
 	
 	public void UpdateState()
 	{
-		//Play mySong
+		if (!menhir.audios[0].isPlaying && !menhir.audios[1].isPlaying) {
+				menhir.audios[0].Play();
+		}
 		//Debug.Log(menhir.gameObject.tag + ": I idle now");
 
 	}
@@ -54,18 +56,33 @@ public class SingState : IMenhirState
 {
 	
 	private readonly Menhir menhir;
+	private bool sung;
 	
 	
 	public SingState (Menhir stateMenhir)
 	{
 		menhir = stateMenhir;
+		sung = false;
 
 	}
 	
 	public void UpdateState()
 	{
-		//Debug.Log(menhir.gameObject.tag + ": I singing now");
+		Debug.Log(menhir.gameObject.tag + ": I singing now");
 		//Play 2 songs sequentially and If I am correct light up. Then go to idle state
+
+		if (!menhir.audios[1].isPlaying) {
+			if (!sung) {
+				menhir.audios[1].Play();
+				sung = true;
+			}else{
+				sung = false;
+				Debug.Log(menhir.gameObject.tag + ": I go idle now");
+				ToIdleState();
+			}
+		}
+
+
 	}
 	
 	public void OnTriggerEnter (Collider other)
@@ -93,7 +110,7 @@ public class Menhir : MonoBehaviour
 	public MeshRenderer meshRendererFlag;
 	public bool correct;
 	public bool completed;
-	AudioSource audio;
+	public AudioSource[] audios;
 
 	
 	
@@ -106,7 +123,6 @@ public class Menhir : MonoBehaviour
     {
         singState = new SingState (this);
         idleState = new IdleState (this);
-		audio = GetComponent<AudioSource>();
     }
 
     // Use this for initialization
