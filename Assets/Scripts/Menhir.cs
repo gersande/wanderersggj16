@@ -28,6 +28,8 @@ public class IdleState : IMenhirState
 	{
 		if (!menhir.audios[0].isPlaying && !menhir.audios[1].isPlaying) {
 				menhir.audios[0].Play();
+			menhir.audios[0].minDistance = 1;
+				
 		}
 		//Debug.Log(menhir.gameObject.tag + ": I idle now");
 
@@ -78,7 +80,13 @@ public class SingState : IMenhirState
 			}else{
 				sung = false;
 				Debug.Log(menhir.gameObject.tag + ": I go idle now");
+				if(menhir.correct) {
+					menhir.completed = true;
+				}
+				menhir.audios[0].Play ();
+				menhir.audios[0].minDistance = 20;
 				ToIdleState();
+
 			}
 		}
 
