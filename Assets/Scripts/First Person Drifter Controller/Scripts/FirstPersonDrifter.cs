@@ -38,6 +38,10 @@ public class FirstPersonDrifter: MonoBehaviour
  
     // Player must be grounded for at least this many physics frames before being able to jump again; set to 0 to allow bunny hopping
     public int antiBunnyHopFactor = 1;
+
+	//Audio
+
+	AudioSource audio;
  
     private Vector3 moveDirection = Vector3.zero;
     private bool grounded = false;
@@ -61,6 +65,7 @@ public class FirstPersonDrifter: MonoBehaviour
         rayDistance = controller.height * .5f + controller.radius;
         slideLimit = controller.slopeLimit - .1f;
         jumpTimer = antiBunnyHopFactor;
+		audio = GetComponent<AudioSource>();
     }
  
     void FixedUpdate() {
@@ -110,6 +115,8 @@ public class FirstPersonDrifter: MonoBehaviour
                 moveDirection = new Vector3(inputX * inputModifyFactor, -antiBumpFactor, inputY * inputModifyFactor);
                 moveDirection = myTransform.TransformDirection(moveDirection) * speed;
                 playerControl = true;
+
+
             }
  
             // Jump! But only if the jump button has been released and player has been grounded for a given number of frames
@@ -140,6 +147,7 @@ public class FirstPersonDrifter: MonoBehaviour
  
         // Move the controller, and set grounded true or false depending on whether we're standing on something
         grounded = (controller.Move(moveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
+
     }
  
     // Store point that we're in contact with for use in FixedUpdate if needed
@@ -153,4 +161,22 @@ public class FirstPersonDrifter: MonoBehaviour
     {
         //print ("Ouch! Fell " + fallDistance + " units!");   
     }
+
+	void Update (){
+
+		PlayAudio ();
+	}
+
+	void PlayAudio() 
+	{
+		if ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 )&& grounded) {
+			
+			if (!audio.isPlaying) {
+				audio.Play ();
+			}
+		
+		} else {
+			audio.Stop ();
+		}
+	}
 }
