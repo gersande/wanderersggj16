@@ -33,3 +33,7 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 [Tt]humbs.db
+*.meta
+*.fuse_hidden000020ef00000002
+*.fuse_hidden000020d300000003
+*.asset

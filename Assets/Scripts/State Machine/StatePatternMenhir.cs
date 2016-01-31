@@ -6,7 +6,7 @@ public class StatePatternMenhir : MonoBehaviour
     
     public MeshRenderer meshRendererFlag;
     public GameObject playerTgt;
-	public float sightRange = 20f;
+	public float sightRange = 200f;
 
 
     [HideInInspector] public IMenhirState currentState;
@@ -60,11 +60,13 @@ public class IdleState : IMenhirState
     public IdleState (StatePatternMenhir StatePatternMenhir)
     {
         menhir = StatePatternMenhir;
+		Debug.Log(menhir.gameObject.tag + ": I idle now");
+
     }
 
     public void UpdateState()
     {
-        Look ();
+        Look ();	
     }
     
     public void OnTriggerEnter (Collider other)
@@ -102,6 +104,8 @@ public class SingState : IMenhirState
     public SingState (StatePatternMenhir StatePatternMenhir)
     {
         menhir = StatePatternMenhir;
+		Debug.Log(menhir.gameObject.tag + ": I sing now");
+
     }
     
     public void UpdateState()
@@ -121,7 +125,8 @@ public class SingState : IMenhirState
     
     public void ToSingState()
     {
-        
+		Debug.Log ("Can't transition to same state");
+
     }
 
     private void Look()
@@ -130,6 +135,7 @@ public class SingState : IMenhirState
 		if (Physics.Raycast (menhir.playerTgt.transform.position, menhir.playerTgt.transform.forward, out hit, menhir.sightRange) &&  hit.collider.CompareTag(menhir.gameObject.tag)) {
             
         }else{
+
             ToIdleState();
         }
     }
