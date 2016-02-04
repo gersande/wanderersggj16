@@ -15,25 +15,27 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		RaycastHit hit;
-		if (Physics.Raycast(player.transform.position, player.transform.forward, out hit, 200f)) {
-			int counter = 0;
-			counter = 0;
-			foreach (var item in menhirs){
-				if(item.correct && item.completed){
-					counter++;
-				}
-				if (hit.collider.CompareTag(item.tag)) {
-					if (Input.GetMouseButtonDown(0))
-						item.Sing();
-					break;
-				}
+//		bool didHit = Physics.Raycast (player.transform.position, player.transform.forward, out hit);
+		Ray fromCam = Camera.main.ViewportPointToRay(new Vector2(.5f,.5f));
+		bool didHit = Physics.Raycast (fromCam,out hit);
 
+//		if (didHit){
+//		Debug.Log ("Hit: " + hit.collider.gameObject.tag);
+//		}
+		int counter = 0;
+		foreach (var item in menhirs){
+			if(item.correct && item.completed){
+				counter++;
 			}
-			if(counter == target){
-				Debug.Log("Completed!");
+//			Debug.Log (item.tag);
+			if (didHit && hit.collider.gameObject.CompareTag(item.tag)) {
+//				Debug.Log (hit.collider.gameObject.tag);
+				if (Input.GetMouseButtonDown(0))
+					item.Sing();
 			}
-
 		}
-
+		if(counter == target){
+			Debug.Log("Completed!");
+		}
 	}
 }

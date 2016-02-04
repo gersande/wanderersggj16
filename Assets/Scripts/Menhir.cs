@@ -26,10 +26,9 @@ public class IdleState : IMenhirState
 	
 	public void UpdateState()
 	{
-		if (!menhir.audios[0].isPlaying && !menhir.audios[1].isPlaying) {
-				menhir.audios[0].Play();
-			menhir.audios[0].minDistance = 1;
-				
+		if (!menhir.audioSource.isPlaying) {
+			menhir.audioSource.minDistance = 1;
+			menhir.audioSource.PlayOneShot (menhir.call);
 		}
 		//Debug.Log(menhir.gameObject.tag + ": I idle now");
 
@@ -58,35 +57,34 @@ public class SingState : IMenhirState
 {
 	
 	private readonly Menhir menhir;
-	private bool sung;
-	
+
 	
 	public SingState (Menhir stateMenhir)
 	{
 		menhir = stateMenhir;
-		sung = false;
-
 	}
 	
 	public void UpdateState()
 	{
-		Debug.Log(menhir.gameObject.tag + ": I singing now");
-		//Play 2 songs sequentially and If I am correct light up. Then go to idle state
+		//Debug.Log(menhir.gameObject.tag + ": I singing now");
 
-		if (!menhir.audios[1].isPlaying) {
-			if (!sung) {
-				menhir.audios[1].Play();
-				sung = true;
-			}else{
-				sung = false;
+		//Play 2 songs sequentially and If I am correct light up. Then go to idle state
+		if ( menhir.audioSource.clip != menhir.call) {
+				menhir.audioSource.clip = menhir.call;
+				menhir.audioSource.minDistance = 100;
+				menhir.audioSource.PlayOneShot (menhir.call);
+				Debug.Log (menhir.tag + " Playing: " + menhir.audioSource.clip.name);
+		}else{
+			if(!menhir.audioSource.isPlaying){
 				Debug.Log(menhir.gameObject.tag + ": I go idle now");
 				if(menhir.correct) {
 					menhir.completed = true;
+					Debug.Log ("Found!");
 				}
-				menhir.audios[0].Play ();
-				menhir.audios[0].minDistance = 20;
+				menhir.audioSource.clip = menhir.song;
+				menhir.audioSource.PlayOneShot (menhir.song);
+				Debug.Log (menhir.tag + " Playing: " + menhir.audioSource.clip.name);
 				ToIdleState();
-
 			}
 		}
 
@@ -118,7 +116,9 @@ public class Menhir : MonoBehaviour
 	public MeshRenderer meshRendererFlag;
 	public bool correct;
 	public bool completed;
-	public AudioSource[] audios;
+	public AudioSource audioSource;
+	public AudioClip call;
+	public AudioClip song;
 
 	
 	
@@ -131,6 +131,8 @@ public class Menhir : MonoBehaviour
     {
         singState = new SingState (this);
         idleState = new IdleState (this);
+		audioSource = gameObject.GetComponent<AudioSource> ();
+		audioSource.clip = song;
     }
 
     // Use this for initialization
